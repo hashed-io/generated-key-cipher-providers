@@ -1,0 +1,25 @@
+{
+  "name": "@smontero/generated-key-cipher-providers",
+  "version": "0.0.1",
+  "description": "Provides cipher classes that are able to generate their private key from some sort of user input",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest --watch"
+  },
+  "author": "Sebastian",
+  "license": "ISC",
+  "devDependencies": {
+    "@polkadot/keyring": "^10.0.2",
+    "@polkadot/util-crypto": "^10.0.2",
+    "@types/jest": "^28.1.4",
+    "eslint": "^8.19.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.4",
+    "eslint-plugin-promise": "^6.0.0",
+    "jest": "^28.1.2"
+  },
+  "dependencies": {
+    "@smontero/hashed-crypto": "^0.0.5"
+  }
+}
