@@ -16,9 +16,10 @@ class PasswordGeneratedKeyCipher extends BaseGeneratedKeyCipher {
    * @returns {string} base64 encoded ciphered payload
    */
   async cipher ({
-    payload
+    payload,
+    type
   }) {
-    return this._crypto.cipher({ payload, privateKey: await this._getPrivateKey() })
+    return this._crypto.cipher({ payload, privateKey: await this._getPrivateKey(), type })
   }
 
   /**

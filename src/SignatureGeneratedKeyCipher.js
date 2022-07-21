@@ -13,11 +13,12 @@ class SignatureGeneratedKeyCipher extends BaseGeneratedKeyCipher {
    * @returns {string} base64 encoded ciphered payload
    */
   async cipher ({
-    payload
+    payload,
+    type
   }) {
     this._clearPrivateKey()
     const nonce = this._crypto.ownNonce()
-    return this._crypto.cipher({ payload, privateKey: await this._getPrivateKey(nonce), nonce })
+    return this._crypto.cipher({ payload, privateKey: await this._getPrivateKey(nonce), nonce, type })
   }
 
   /**
@@ -28,8 +29,8 @@ class SignatureGeneratedKeyCipher extends BaseGeneratedKeyCipher {
   async decipher ({
     fullCipheredPayload
   }) {
-    const { cipheredPayload, nonce } = this._crypto.decodeOwnFullCipheredPayload(fullCipheredPayload)
-    return this._crypto.decipher({ cipheredPayload, nonce, privateKey: await this._getPrivateKey(nonce) })
+    const { cipheredPayload, nonce, type } = this._crypto.decodeOwnFullCipheredPayload(fullCipheredPayload)
+    return this._crypto.decipher({ cipheredPayload, nonce, privateKey: await this._getPrivateKey(nonce), type })
   }
 
   async _getPrivateKey (nonce) {

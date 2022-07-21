@@ -17,17 +17,24 @@ beforeAll(async () => {
 
 describe('SignatureGeneratedKeyCipher', () => {
   test('cipher/decipher', async () => {
-    const payload = Buffer.from(JSON.stringify({ p1: 'hola', p2: 2 }), 'utf8')
-    const fullCipheredPayload = await signatureCipher.cipher({ payload })
+    const payload = { p1: 'hola', p2: 2 }
+    const rawPayload = Buffer.from(JSON.stringify(payload), 'utf8')
+    let fullCipheredPayload = await signatureCipher.cipher({ payload: rawPayload })
     // console.log('encrypted: ', fullCipheredPayload)
     let decipheredPayload = await signatureCipher.decipher({ fullCipheredPayload })
-    // console.log('decipheredPayload: ', decipheredPayload)
-    expect(Buffer.from(decipheredPayload)).toEqual(payload)
+    // console.log('decipheredPayload:  ', decipheredPayload)
+    expect(Buffer.from(decipheredPayload)).toEqual(rawPayload)
+
+    fullCipheredPayload = await signatureCipher.cipher({ payload: rawPayload, type: 'json' })
+    // console.log('encrypted: ', fullCipheredPayload)
+    decipheredPayload = await signatureCipher.decipher({ fullCipheredPayload })
+    // console.log('decipheredPayload:  ', decipheredPayload)
+    expect(decipheredPayload).toEqual(payload)
     // A new instance for the same address should be able to decipher
     const signatureCipher2 = newSignatureGeneratedKeyCipherInstance(keyPair1.address)
     decipheredPayload = await signatureCipher2.decipher({ fullCipheredPayload })
     // console.log('decipheredPayload: ', decipheredPayload)
-    expect(Buffer.from(decipheredPayload)).toEqual(payload)
+    expect(decipheredPayload).toEqual(payload)
   })
 
   test('Should fail for trying to decipher payload using instance with different address', async () => {
