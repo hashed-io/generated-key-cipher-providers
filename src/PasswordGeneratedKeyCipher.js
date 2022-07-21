@@ -18,8 +18,7 @@ class PasswordGeneratedKeyCipher extends BaseGeneratedKeyCipher {
   async cipher ({
     payload
   }) {
-    const { fullCipheredPayload } = await this._crypto.cipher({ payload, privateKey: await this._getPrivateKey() })
-    return fullCipheredPayload
+    return this._crypto.cipher({ payload, privateKey: await this._getPrivateKey() })
   }
 
   /**

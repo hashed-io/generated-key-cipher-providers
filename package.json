@@ -1,6 +1,6 @@
 {
   "name": "@smontero/generated-key-cipher-providers",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Provides cipher classes that are able to generate their private key from some sort of user input",
   "main": "src/index.js",
   "scripts": {
@@ -20,6 +20,6 @@
     "jest": "^28.1.2"
   },
   "dependencies": {
-    "@smontero/hashed-crypto": "^0.0.5"
+    "@smontero/hashed-crypto": "0.0.6"
   }
 }
