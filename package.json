@@ -20,6 +20,6 @@
     "jest": "^28.1.2"
   },
   "dependencies": {
-    "@smontero/hashed-crypto": "0.0.7"
+    "@smontero/hashed-crypto": "0.0.8"
   }
 }
