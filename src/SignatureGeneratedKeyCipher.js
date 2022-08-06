@@ -18,7 +18,8 @@ class SignatureGeneratedKeyCipher extends BaseGeneratedKeyCipher {
   }) {
     this._clearPrivateKey()
     const nonce = this._crypto.ownNonce()
-    return this._crypto.cipher({ payload, privateKey: await this._getPrivateKey(nonce), nonce, type })
+    console.log('cipher: ', nonce)
+    return this._crypto.cipher({ payload, privateKey: await this._generatePrivateKey(nonce), nonce, type })
   }
 
   /**
@@ -30,15 +31,17 @@ class SignatureGeneratedKeyCipher extends BaseGeneratedKeyCipher {
     fullCipheredPayload
   }) {
     const { cipheredPayload, nonce, type } = this._crypto.decodeOwnFullCipheredPayload(fullCipheredPayload)
-    return this._crypto.decipher({ cipheredPayload, nonce, privateKey: await this._getPrivateKey(nonce), type })
+    console.log('decipher: ', nonce)
+    return this._crypto.decipher({ cipheredPayload, nonce, privateKey: await this._generatePrivateKey(nonce), type })
   }
 
-  async _getPrivateKey (nonce) {
+  async _generatePrivateKey (nonce) {
     let password = null
     if (!this._hasPrivateKey()) {
       password = await this._signFn(this._address, nonce)
+      console.log('password: ', password)
     }
-    return super._getPrivateKey(password)
+    return super._generatePrivateKey(password)
   }
 }
 

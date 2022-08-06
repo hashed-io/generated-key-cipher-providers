@@ -19,7 +19,7 @@ class PasswordGeneratedKeyCipher extends BaseGeneratedKeyCipher {
     payload,
     type
   }) {
-    return this._crypto.cipher({ payload, privateKey: await this._getPrivateKey(), type })
+    return this._crypto.cipher({ payload, privateKey: await this._generatePrivateKey(), type })
   }
 
   /**
@@ -30,11 +30,11 @@ class PasswordGeneratedKeyCipher extends BaseGeneratedKeyCipher {
   async decipher ({
     fullCipheredPayload
   }) {
-    return this._crypto.decipher({ fullCipheredPayload, privateKey: await this._getPrivateKey() })
+    return this._crypto.decipher({ fullCipheredPayload, privateKey: await this._generatePrivateKey() })
   }
 
-  async _getPrivateKey () {
-    return super._getPrivateKey(this._password)
+  async _generatePrivateKey () {
+    return super._generatePrivateKey(this._password)
   }
 }
 

@@ -38,7 +38,18 @@ class BaseGeneratedKeyCipher {
     return !!this._privateKey
   }
 
-  async _getPrivateKey (password) {
+  assertHasPrivateKey () {
+    if (!this._hasPrivateKey()) {
+      throw new Error('Private key has not been generated')
+    }
+  }
+
+  privateKey () {
+    this.assertHasPrivateKey()
+    return this._privateKey
+  }
+
+  async _generatePrivateKey (password) {
     if (!this._privateKey) {
       const secret = await this._crypto.argon2id({ password, salt: this._salt('argon2id') })
       this._privateKey = await this._crypto.deriveKey({ secret, salt: this._salt('Derivation') })
